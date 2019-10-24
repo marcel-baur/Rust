@@ -18,7 +18,7 @@ pub fn qs(vec: &mut [i32]) {
     }
 }
 
-pub fn qs2(vec: &mut [i32] ) {
+pub fn qs2(vec: &mut [i32]) {
 
     let len: usize = vec.len();
     if len <= 1 {
@@ -56,4 +56,35 @@ pub fn qs2(vec: &mut [i32] ) {
     qs2(&mut vec[0..cmp::min(left - 1, right)]);
     qs2(&mut vec[cmp::max(left, right + 1)..]);
 }
+
+pub fn qs_generic<T>(vec: &mut [T], cmp: &dyn Fn(&T, &T) -> Ordering) {
+    let len: usize = vec.len();
+    if len <= 1 {
+        return;
+    }
+    let pivot: usize = 0;
+    vec.swap(pivot, len / 2);
+
+    let mut left: usize = 1;
+    let mut right: usize = vec.len() - 1;
+
+    loop {
+        while left < len && cmp(&vec[left], &vec[pivot]) != Ordering::Greater {
+            left += 1
+        }
+        while right > 0 && cmp(&vec[right], &vec[pivot]) != Ordering::Less {
+            right -= 1
+        }
+        if left >= right {
+            break;
+        }
+        vec.swap(left, right);
+        left += 1;
+        right -= 1;
+    }
+    vec.swap(pivot, right);
+    qs_generic(&mut vec[0..cmp::min(left - 1, right)], &cmp);
+    qs_generic(&mut vec[cmp::max(left, right + 1)..], &cmp);
+}
+
 
