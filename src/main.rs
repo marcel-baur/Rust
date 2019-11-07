@@ -71,7 +71,7 @@ fn main() -> () {
     let sep = matches.value_of("sep");
 
     if let (Some(t), Some(s)) = (text, sep) {
-        let map = split(&t, &s);
+        let map = splittingstrings::split(&t, &s);
         println!("{:#?}", map);
 
     }
@@ -82,23 +82,7 @@ fn main() -> () {
 
 }
 
-fn split<'s, 't>(mut text: &'t str, sep: &'s str) -> Map<usize, &'t str> {
-    let seplen = sep.len();
-    let mut map = Map::new();
-    let mut offset = 0;
-    while let Some(idx) = text.find(sep) {
-        let skip = idx+seplen;
-        if idx>0 {
-            map.insert(offset, &text[0..idx]);
-        }
-        text = &text[skip..];
-        offset += skip;
-    }
-    if text.len()>0 {
-        map.insert(offset, &text);
-    }
-    map
-}
+
 //
 //fn compare(num1: &i32, num2: &i32) -> Ordering {
 //    if num1 > num2 {
