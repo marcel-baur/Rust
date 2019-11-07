@@ -1,0 +1,14 @@
+name: myapp
+version: "1.0"
+author: Kevin K. <kbknapp@gmail.com>
+about: Does awesome things
+args:
+  - input:
+      short: i
+      long: config
+      value_name: FILE
+      help: Sets a custom config file
+      takes_value: true
+  - sep:
+      short: s
+      takes_value: true

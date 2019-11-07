@@ -2,3 +2,7 @@
 name = "hello_world" # the name of the package
 version = "0.1.0"    # the current version, obeying semver
 authors = ["Marcel <mail@marcelbaur.io>"]
+edition = "2018"
+
+[dependencies]
+clap = {version = "~2.33.0", features = ["yaml"]}
